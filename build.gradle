@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+    id "org.sonarqube" version "4.2.1.3168"
+}
+
+group = 'eu.clvi'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
+    testImplementation 'junit:junit:4.13.1'
+
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+    reports {
+        xml.required = true
+    }
+}
+
+sonar {
+    properties {
+        property "sonar.projectKey", "claire-villard-sonarsource_missing-vintage-engine"
+        property "sonar.organization", "claire-villard-sonarsource"
+        property "sonar.host.url", "https://sonarcloud.io"
+    }
+}
